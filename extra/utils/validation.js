@@ -1,17 +1,14 @@
-let users = [
-    {
-    traineeEmail: 'trainee1@successive.tech',
-    reviewerEmail: 'reviewer1@successive.tech',
-    }
-];
+const { validateEmail } = require('./helpers')
+var { users } = require('../constants')
 
-function validateEmail(email){
-    if (/^\w+([\.-]?\w+)*@successive.tech+$/.test(email)){
-        return true;
-    }else{
-        return false;
-    }
-}
+// let users = [
+//     {
+//     traineeEmail: 'trainee1@successive.tech',
+//     reviewerEmail: 'reviewer1@successive.tech',
+//     }
+// ];
+
+
 
 function validateUsers(users){
     let user_count = {'valid': 0, 'invalid': 0};
@@ -29,7 +26,3 @@ function validateUsers(users){
 
 console.log(validateEmail('trainee1@successive.tech'));
 console.log(validateUsers(users));
-
-module.exports.newOne = function(){
-    console.log(1);
-}
