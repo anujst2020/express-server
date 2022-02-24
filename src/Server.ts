@@ -1,6 +1,9 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { middleware1 } from './libs/routes/notFoundRoute';
+import { traineeRouter, userRouter} from './router';
+//import traineeRouter from './controllers/trainee/routes';
+//import userRrouter from './controllers/user/routes';
 const app = express()
 const router = express.Router();
  
@@ -30,6 +33,8 @@ class Server {
         router.get('/health-check', (req, res) => {
             res.status(200).send('I am ok');
         });
+        app.use('/api', traineeRouter);
+        app.use('/api', userRouter);
         return router;
      }
 
