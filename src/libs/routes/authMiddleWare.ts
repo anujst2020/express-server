@@ -5,7 +5,6 @@ import * as jwt from 'jsonwebtoken';
 
 export let authMiddleWare = (req, res, next) =>{
     let token = req.body.token || req.query.token || req.headers["x-token"];
-    console.log(token, req.body.id);
     jwt.verify(token, 'private_key_here', (err, user)=>{
         if(err){
             res.status(422).send('JWT token not valid');
