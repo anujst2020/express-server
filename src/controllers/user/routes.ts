@@ -5,6 +5,7 @@
  import { authMiddleWare } from '../../libs/routes/authMiddleWare';
  
  router.get('/users', authMiddleWare, UserController.getUsers);
+ router.get('/user/:id', authMiddleWare, UserController.getUser);
  router.post('/user', authMiddleWare, UserController.postUser);
  router.put('/user/:id', authMiddleWare, UserController.putUser);
  router.delete('/user/:id', authMiddleWare, UserController.deleteUser);

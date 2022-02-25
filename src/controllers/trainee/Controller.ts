@@ -2,6 +2,9 @@ class Trainee {
     public static getTrainees(req, res){
         return res.status(200).send({'message': 'get method of trainee controller'});
     }
+    public static getTrainee(req, res){
+        return res.status(200).send({'message': 'get method of trainee controller'});
+    }
 
     public static postTrainee(req, res){
         // get data from body and perform task

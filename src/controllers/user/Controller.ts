@@ -5,7 +5,15 @@ class User {
         UserModel.find({},{password: 0},(err, users)=>{
             if(err)
                 return res.status(500).send({data:[], 'message': err.message});
-            return res.status(200).send({data: users, 'message': 'get method of user controller'});
+            return res.status(200).send({data: users, 'message': 'users fetched successfully'});
+        });
+    }
+
+    public static getUser(req, res){
+        UserModel.findOne({_id: req.params.id},{password: 0},(err, users)=>{
+            if(err)
+                return res.status(500).send({data:[], 'message': err.message});
+            return res.status(200).send({data: users, 'message': 'user fetched successfully'});
         });
     }
 
