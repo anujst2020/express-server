@@ -1,18 +1,21 @@
 class User {
-    public static getTrainee(req, res){
+    public static getUser(req, res){
         return res.status(200).send({'message': 'get method of user controller'});
     }
 
-    public static postTrainee(req, res){
+    public static postUser(req, res){
+        // get data from body and perform task
         return res.status(200).send({'message': 'post method of user controller'});
 
     }
 
-    public static putTrainee(req, res){
+    public static putUser(req, res){
+        // get data from body and perform task
         return res.status(200).send({'message': 'put method of user controller'});
     }
 
-    public static deleteTrainee(req, res){
+    public static deleteUser(req, res){
+        // Get id from param/body and perform task
         return res.status(200).send({'message': 'delete method of user controller'});
     }
 }

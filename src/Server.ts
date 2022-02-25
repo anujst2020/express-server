@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as jwt from 'jsonwebtoken';
 import { middleware1 } from './libs/routes/notFoundRoute';
 import { traineeRouter, userRouter} from './router';
 //import traineeRouter from './controllers/trainee/routes';
@@ -27,6 +28,11 @@ class Server {
     }
 
      public setupRoutes (): any {
+        router.get('/api/login', (req, res) => {
+            // moduleName, role and permissionType we get from db based on user
+            let token = jwt.sign({moduleName: 'getUsers', role: 'trainee', permissionType: 'read'}, 'private_key_here', {expiresIn: '36000s'});
+            res.status(200).send({token});
+        });
         router.get('/', (req, res) => {
             res.status(200).send('Express home');
         });
