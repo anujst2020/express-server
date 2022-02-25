@@ -4,9 +4,9 @@
  import TraineeController from './Controller';
  import { dataValidMiddleware } from '../../middleware/dataMiddleware';
  
- router.get('/trainee', dataValidMiddleware, TraineeController.getTrainee);
+ router.get('/trainees', dataValidMiddleware, TraineeController.getTrainees);
  router.post('/trainee', TraineeController.postTrainee);
- router.put('/trainee', TraineeController.putTrainee);
+ router.put('/trainee/:id', TraineeController.putTrainee);
  router.delete('/trainee/:id', TraineeController.deleteTrainee);
  
  export default router;

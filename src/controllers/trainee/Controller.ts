@@ -1,5 +1,5 @@
 class Trainee {
-    public static getTrainee(req, res){
+    public static getTrainees(req, res){
         return res.status(200).send({'message': 'get method of trainee controller'});
     }
 
