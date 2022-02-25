@@ -8,12 +8,12 @@ export let authMiddleWare = (req, res, next) =>{
     console.log(token, req.body.id);
     jwt.verify(token, 'private_key_here', (err, user)=>{
         if(err){
-            res.status(500).send('JWT token not valid');
+            res.status(422).send('JWT token not valid');
         }else{
             if(hasPermission(user.moduleName, user.role, user.permissionType)){
                 next();
             }else{
-            res.status(422).send('You don\'t have valid permission');
+            res.status(403).send('You don\'t have valid permission');
             }
         }
     });
