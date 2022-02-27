@@ -1,6 +1,7 @@
 
 import * as express from 'express';
 import { hasPermission } from '../../../extraTs/utils/permissions';
+import UserModel  from '../../repositories/user/UserModel';
 import * as jwt from 'jsonwebtoken';
 
 export let authMiddleWare = (req, res, next) =>{
@@ -9,11 +10,15 @@ export let authMiddleWare = (req, res, next) =>{
         if(err){
             res.status(422).send('JWT token not valid');
         }else{
-            if(hasPermission(user.moduleName, user.role, user.permissionType)){
-                next();
-            }else{
-            res.status(403).send('You don\'t have valid permission');
-            }
+            UserModel.findOne({_id: user.id, email: user.email}, (err, db_user)=>{
+                if(err){
+                    return res.status(422).send({'message': err.message});
+                }else if(db_user){
+                    next();
+                }else{
+                    return res.status(422).send({'message': 'User not found'});
+                }
+            });
         }
     });
 }

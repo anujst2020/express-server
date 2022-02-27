@@ -30,9 +30,11 @@ class Server {
     }
 
      public setupRoutes (): any {
-        router.get('/api/login', (req, res) => {
-            // moduleName, role and permissionType we get from db based on user
-            let token = jwt.sign({moduleName: 'getUsers', role: 'trainee', permissionType: 'read'}, process.env.JWT_KEY, {expiresIn: '36000s'});
+        router.post('/api/login', (req, res) => {
+            let id:string = req.body.id; //'6218b285bb49bacb16f9ef5f';
+            let email:string = req.body.email; //'shyam@asd.com';
+            console.log(req.body);
+            let token = jwt.sign({id: id, email: email}, process.env.JWT_KEY, {expiresIn: '36000s'});
             res.status(200).send({token});
         });
         router.get('/', (req, res) => {
