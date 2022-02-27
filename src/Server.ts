@@ -30,11 +30,6 @@ class Server {
     }
 
      public setupRoutes (): any {
-        router.get('/api/login', (req, res) => {
-            // moduleName, role and permissionType we get from db based on user
-            let token = jwt.sign({moduleName: 'getUsers', role: 'trainee', permissionType: 'read'}, process.env.JWT_KEY, {expiresIn: '36000s'});
-            res.status(200).send({token});
-        });
         router.get('/', (req, res) => {
             res.status(200).send('Express home');
         });

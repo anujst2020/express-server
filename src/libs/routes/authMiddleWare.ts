@@ -9,11 +9,7 @@ export let authMiddleWare = (req, res, next) =>{
         if(err){
             res.status(422).send('JWT token not valid');
         }else{
-            if(hasPermission(user.moduleName, user.role, user.permissionType)){
-                next();
-            }else{
-            res.status(403).send('You don\'t have valid permission');
-            }
+            next();
         }
     });
 }
