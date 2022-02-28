@@ -8,13 +8,13 @@ class Trainee {
         let search_name = req.query.name;
         let search_email = req.query.email;
         let search_obj = {};
-        if(search_email){
+        if(search_name && search_email){
+            search_obj = {first_name: {$regex: search_name, $options: 'i'}, email: {$regex: search_email, $options: 'i'}};
+        }else if(search_email){
             search_obj = {email: {$regex: search_email, $options: 'i'}};
         }else if(search_name){
             search_obj = {first_name: {$regex: search_name, $options: 'i'}};
-        }else if(search_name && search_email){
-            search_obj = {first_name: {$regex: search_name, $options: 'i'}, email: {$regex: search_email, $options: 'i'}};
-        }
+        } 
 
         var query = UserModel.find(search_obj, {password: 0, _id: 0, __v: 0}).skip(skip).limit(limit).sort({email: 1});
         query.exec((err, users)=>{
