@@ -1,4 +1,5 @@
 import UserModel  from '../../repositories/user/UserModel';
+import * as bcrypt from 'bcrypt';
 
 class Trainee {
 
@@ -16,7 +17,7 @@ class Trainee {
             search_obj = {first_name: {$regex: search_name, $options: 'i'}};
         } 
 
-        var query = UserModel.find(search_obj, {password: 0, _id: 0, __v: 0}).skip(skip).limit(limit).sort({email: 1});
+        var query = UserModel.find(search_obj, {password: 0, __v: 0}).skip(skip).limit(limit).sort({email: 1});
         query.exec((err, users)=>{
             if(err)
                 return res.status(500).send({data:[], 'message': err.message});
@@ -34,7 +35,13 @@ class Trainee {
 
     public static postTrainee(req, res){
         // get data from body and perform task
-        UserModel.create({},(err, user)=>{
+        const hash = bcrypt.hashSync(req.body.password, 10);
+        UserModel.create({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            password: hash
+        },(err, user)=>{
             if(err)
                 return res.status(500).send({'message': err.message});
             return res.status(200).send({'message': 'trainee created successfully'});
@@ -43,10 +50,12 @@ class Trainee {
 
     public static putTrainee(req, res){
         // get data from body and perform task
-        UserModel.updateOne({_id: req.body.id},
+        UserModel.updateOne({_id: req.params.id},
             {
                 first_name: req.body.first_name,
-                last_name: req.body.last_name            },
+                last_name: req.body.last_name,
+                email: req.body.email
+            },
             (err, user)=>{
                 if(err)
                     return res.status(500).send({'message': err.message});
