@@ -1,4 +1,3 @@
- import * as bcrypt from 'bcrypt-nodejs';
  import * as mongoose from 'mongoose';
  import { IUser } from '../../repositories/user/IUserModel';
  import { UserSchema } from '../../repositories/user/UserSchema';
