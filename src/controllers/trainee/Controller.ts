@@ -1,9 +1,25 @@
 import UserModel  from '../../repositories/user/UserModel';
 import * as bcrypt from 'bcrypt';
+import {User} from '../../repositories/user/User';
+import { UserRepository } from '../../repositories/user/UserRepository';
+import { MongoClient, Db, Collection } from 'mongodb';
+
+
+
 
 class Trainee {
 
-    public static getTrainees(req, res){
+    public static async getTrainees(req, res){
+
+        // const user = new User('Leonidas', 'dgdfgdfg', 'dgddfg', 'dgfdgfdd');
+        const connection = await MongoClient.connect('mongodb://localhost');
+        const db = connection.db('express-training');
+        const repository = new UserRepository(db, 'users');
+        const result = await repository.find();
+
+        return res.status(500).send({data:result, 'message': 'hghfgdfgdfd'});
+
+
         let limit = req.query.limit? req.query.limit: 10;
         let skip = req.query.page? (parseInt(req.query.page)-1)*limit: 0;
         let search_name = req.query.name;
