@@ -15,7 +15,7 @@ class Trainee {
         const connection = await MongoClient.connect('mongodb://localhost');
         const db = connection.db('express-training');
         const repository = new UserRepository(db, 'users');
-        const result = await repository.find();
+        const result = await repository.findOne('621b5c57ddb77ddda0b2fe50');
 
         return res.status(500).send({data:result, 'message': 'hghfgdfgdfd'});
 
