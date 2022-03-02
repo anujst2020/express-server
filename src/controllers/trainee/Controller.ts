@@ -8,17 +8,15 @@ import { MongoClient, Db, Collection } from 'mongodb';
 
 
 class Trainee {
-
-    public static async getTrainees(req, res){
-
+    public async getTrainees(req, res){
+        // const connection = await MongoClient.connect('mongodb://localhost');
+        // const db = connection.db('express-training');
+        // const repository = new UserRepository(db, 'users');
+        // const result = await repository.findOne('621b5c57ddb77ddda0b2fe50');
+        // const result = await repository.find();
         // const user = new User('Leonidas', 'dgdfgdfg', 'dgddfg', 'dgfdgfdd');
-        const connection = await MongoClient.connect('mongodb://localhost');
-        const db = connection.db('express-training');
-        const repository = new UserRepository(db, 'users');
-        const result = await repository.findOne('621b5c57ddb77ddda0b2fe50');
-
-        return res.status(500).send({data:result, 'message': 'hghfgdfgdfd'});
-
+        // const result = await repository.create(user);
+        // return res.status(200).send({data: result, 'message': 'data fetched successfully'});
 
         let limit = req.query.limit? req.query.limit: 10;
         let skip = req.query.page? (parseInt(req.query.page)-1)*limit: 0;
@@ -41,7 +39,7 @@ class Trainee {
         });
     }
 
-    public static getTrainee(req, res){
+    public async getTrainee(req, res){
         UserModel.findOne({_id: req.params.id},{password: 0},(err, users)=>{
             if(err)
                 return res.status(500).send({data:[], 'message': err.message});
@@ -49,7 +47,7 @@ class Trainee {
         });
     }
 
-    public static postTrainee(req, res){
+    public async postTrainee(req, res){
         // get data from body and perform task
         const hash = bcrypt.hashSync(req.body.password, 10);
         UserModel.create({
@@ -64,7 +62,7 @@ class Trainee {
         });
     }
 
-    public static putTrainee(req, res){
+    public async putTrainee(req, res){
         // get data from body and perform task
         UserModel.updateOne({_id: req.params.id},
             {
@@ -79,7 +77,7 @@ class Trainee {
             });
     }
 
-    public static deleteTrainee(req, res){
+    public async deleteTrainee(req, res){
         // Get id from param/body and perform task
         UserModel.deleteOne({_id: req.params.id}, (err, user)=>{
             if(err)
@@ -89,4 +87,4 @@ class Trainee {
     }
 }
 
-export default Trainee;
+export default new Trainee();

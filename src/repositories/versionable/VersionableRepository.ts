@@ -23,11 +23,11 @@ export abstract class VersionableRepository<T> implements IWrite<T>, IRead<T> {
         return true;
     }
     async find(): Promise<any> {
-        const result = await this._collection.find({}).toArray();
+        const result = await this._collection.find().toArray();
         return result;
     }
     async findOne(id: string): Promise<any> {
         const result = await this._collection.find({_id: new ObjectId(id)}).toArray();
-        return result?.[0];
+        return result.length? result[0] : null;
     }
 }
